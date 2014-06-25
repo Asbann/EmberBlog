@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Ember Starter Kit</title>
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="bootstrap-3.1.1/dist/css/bootstrap.css">
+
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+
+		<script type='text/x-handlebars' data-template-name='application'>
+			<div class='maincontainer'>
+				<div class='navbar navbar-default navbar-color' role="navigation">
+					<div class='container'>
+						{{#link-to 'index' class='navbar-brand'}}
+						<span class='logotext'>ember</span>
+						<span class='logotext bold'>blog</span>
+						{{/link-to}}
+					</div>
+				</div>
+				<div class='container'>
+					{{outlet}}
+				</div>
+			</div>
+		</script>
+		<script type='text/x-handlebars' data-template-name='index'>
+			<ul class='list-unstyled'>
+				{{#each blog in model}}
+				<li class='row col-md-8 blog-container'>
+					<div class='blog-image'></div>
+					<div class='blog-content'>
+						<div class='blog-head'>
+							<h4>{{#link-to 'blog' blog.id}}{{blog.title}}{{/link-to}}</h4>
+							<div class='date'>Published {{blog.publishedAt}}</div>
+						</div>
+						<div class='blog-text'>{{blog.text}}</div>
+						<hr/>
+						<div class='blog-foot'>{{#link-to 'blog' blog.id}}Read more{{/link-to}}</div>
+					</div>
+				</li>
+				{{/each}}
+			</ul>
+			{{#link-to 'archive' class='btn btn-primary btn-lg'}}Visit the Archive{{/link-to}}
+		</script>
+		<script type='text/x-handlebars' data-template-name='archive'>
+			{{outlet}}
+		</script>
+		<script type='text/x-handlebars' data-template-name='archive/index'>
+			{{#link-to 'bcreate'}}Opret Blog inlæg{{/link-to}}
+			{{#each blog in model}}
+				<h4>{{#link-to 'blog' blog.id}}{{blog.title}}{{/link-to}}</h4>
+			{{/each}}
+			{{outlet}}
+		</script>
+		<script type='text/x-handlebars' data-template-name='catagory'>
+			<div class='col-md-4 catagory-container'>
+			{{#if isEditable}}
+				<form class='catagory-form'>
+					<div class="input-group">
+						<label class="sr-only" for="catagoryInput">Catagory name</label>
+							{{input type="text" class="form-control" id="catagoryInput" placeholder="Catagory name" value=controller.valname}}
+						<span class="input-group-btn">
+							<button {{action 'addCatagory'}} class='btn btn-default'>Add Catagory</button>
+						</span>
+					</div>
+				</form>
+				{{#each catagory in model.catagories}}
+				<span class='catagory'>
+					{{catagory.name}}
+					<button {{action 'removeCatagory' catagory}} type="button" class="close" aria-hidden="true">&times;</button>
+				</span>
+				{{/each}}
+			{{else}}
+				{{#each catagory in model.catagories}}
+				<span class='catagory'>
+					{{catagory.name}}
+				</span>
+				{{/each}}
+			{{/if}}
+			</div>
+		</script>
+		<script type='text/x-handlebars' data-template-name='bcreate'>
+			{{!-- {{render catagory isEditable=true}} --}}
+			<form>
+				{{input name=title value=model.title}}
+				{{textarea name=text value=model.text}}
+				<button {{action 'publishBlog'}} class='btn btn-primary btn-sm'>Publish</button>
+			</form>
+		</script>
+		<script type='text/x-handlebars' data-template-name='blog'>
+			{{#if isEditable}}
+				<div class='row col-md-8 blog-container'>
+					<div class='blog-content'>
+						<div class='blog-head blog-head-edit'>
+							{{view Ember.ContenteditableView tagName="h4" valueBinding="model.title"}}
+						</div>
+						{{view Ember.ContenteditableView valueBinding="model.text" class="blog-text blog-text-full"}}
+						<hr/>
+						<div class='blog-foot'>
+							<button {{action 'editBlog'}} class='btn btn-primary btn-sm'>Save</button>
+							<button {{action 'deleteBlog'}} class='btn btn-primary btn-sm'>Delete</button>
+						</div>
+					</div>
+				</div>
+				{{!-- {{render catagory isEditable=true}} --}}
+			{{else}}
+				<div class='row col-md-8 blog-container'>
+					<div class='blog-image'></div>
+					<div class='blog-content'>
+						<div class='blog-head'>
+							<h4>{{model.title}}</h4>
+							<div class='date'>Published {{model.publishedAt}}</div>
+						</div>
+						<div class='blog-text blog-text-full'>{{model.text}}</div>
+						<hr/>
+						<div class='blog-foot'>
+							<button {{action 'editToggle'}} class='btn btn-primary btn-sm'>Edit</button>
+							<button {{action 'deleteBlog'}} class='btn btn-primary btn-sm'>Delete</button>
+						</div>
+					</div>
+				</div>
+				{{!-- {{render catagory isEditable=false}} --}}
+			{{/if}}
+		</script>
+
+		<!--JAVASCRIPT FILES-->
+		<script src="js/libs/jquery-1.10.2.js"></script>
+		<script src="js/libs/handlebars-1.1.2.js"></script>
+		<script src="js/libs/ember-1.5.1.js"></script>
+		<script src="js/libs/ember-data.js"></script>
+		<script src="js/app.js"></script>
+
+		<!--routes-->
+		<script src="js/routes/archive_index_route.js"></script>
+		<script src="js/routes/bcreate_route.js"></script>
+		<script src="js/routes/blog_route.js"></script>
+		<script src="js/routes/index_route.js"></script>
+
+		<!--controllers-->
+		<script src="js/controllers/archive_controller.js"></script>
+		<script src="js/controllers/bcreate_controller.js"></script>
+		<script src="js/controllers/blog_controller.js"></script>
+		<script src="js/controllers/catagory_controller.js"></script>
+		<script src="js/controllers/index_controller.js"></script>
+
+		<!--views-->
+		<script src="js/views/catagory_view.js"></script>
+		<script src="js/views/contenteditable_view.js"></script>
+
+		<!--models-->
+		<script src="js/models/blog_model.js"></script>
+		<script src="js/models/catagory_model.js"></script>
+
+		<!--fixtures-->
+		<script src="js/fixtures/blog_fixtures.js"></script>
+		<script src="js/fixtures/catagory_fixtures.js"></script>
+
+		<!-- to activate the test runner, add the "?test" query string parameter -->
+		<script src="tests/runner.js"></script>
+	</body>
+</html>

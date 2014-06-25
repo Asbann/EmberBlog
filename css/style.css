@@ -1,0 +1,87 @@
+/* Put your CSS here */
+body {
+	background-color: #fffcf9;
+}
+
+.logotext {
+	color: #807a75;
+	font-size: 24px;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+a {
+	color: #ff7200;
+}
+
+.navbar-color {
+	background-color: #f8efe8;
+}
+.blog-container {
+	margin-bottom: 20px;
+}
+.blog-content {
+	border: 1px #eeeeee solid;
+	background-color: #ffffff;
+}
+.blog-content hr {
+	width: 97%;
+	margin-bottom: 7px;
+}
+.blog-head {
+	margin-right: 15px;
+	margin-left: 15px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding-top: 3px;
+}
+.blog-head h4 {
+	display: inline;
+}
+.blog-head-edit h4 {
+	display: block;
+}
+.blog-text {
+	margin-right: 15px;
+	margin-left: 15px;
+	max-height: 300px;
+	overflow: hidden;
+	color: #807a75;
+}
+.blog-text-full {
+	overflow: auto;
+	max-height: none;
+}
+
+.blog-foot {
+	margin-right:15px;
+	margin-left:15px;
+	margin-bottom: 10px;
+}
+.catagory-container {
+	padding: 0px 15px 0px 15px;
+}
+
+.catagory {
+	padding: 3px 5px 3px 10px;
+	background-color: #eeeeee;
+	border-radius: 5px;
+	margin: 0px 5px 15px 5px;
+	text-align: middle;
+}
+
+.catagory-form {
+	margin-bottom: 15px;
+}
+
+.close {
+	float: none;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.date {
+	float: right;
+}
